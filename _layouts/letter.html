@@ -4,4 +4,19 @@ layout: default
 {% include letters.html %}
 {{ content }}
 
-{{ site.data.definitions[page.letter] }}
+<dl class="definitions-list">
+{% for def in site.data.definitions[page.letter] %}
+    <dt id="{{ def.word | slugify }}">{{ def.word }}</dt>
+    {% if def.template == "html" %}
+    <dd>{% if def.qualifier %}<i>{{ def.qualifier }}</i> {% endif %}{{ def.html }}</dd>
+    {% elsif def.template == "alias" %}
+    <!-- TODO deal with target with a different initial letter -->
+    <dd>&rarr; <a href="#{{ def.target | slugify }}">{{ def.target }}</a>.</dd>
+    {% elsif def.template == "derivative" %}
+    <!-- TODO idem -->
+    <dd><i>{{ def.qualifier }}</i> <a href="#{{ def.target | slugify }}">{{ def.target }}</a>.</dd>
+    {% else %}
+    <dd>TODO: {{ def }}</dd>
+    {% endif %}
+{% endfor %}
+</dl>

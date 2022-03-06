@@ -10,8 +10,4 @@ layout: default
   {% include letters.html %}
 
   {{ content }}
-
-  {% for def in site.data.definitions['A'] %}
-  {{# def.markdown_text | markdownify #}}
-  {% endfor %}
 </div>

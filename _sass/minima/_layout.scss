@@ -151,3 +151,19 @@
     }
   }
 }
+
+.letters-nav {
+  li {
+    list-style-type: none;
+    display: inline-block;
+  }
+  li + li {
+    margin-left: .5em;
+  }
+}
+
+.definitions-list {
+  dt {
+    font-weight: bold;
+  }
+}
