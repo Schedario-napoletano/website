@@ -4,7 +4,7 @@ layout: default
 {% include letters.html %}
 {{ content }}
 
-<dl class="definitions-list">
+<dl>
 {% for def in site.data.definitions[page.letter] %}
     <dt id="{{ def.word | slugify }}">{{ def.word }}</dt>
     {% if def.template == "html" %}
