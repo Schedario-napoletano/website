@@ -1,0 +1,13 @@
+<nav>
+<ul>
+    {% assign letters = "ABCDEFGHIJLMNOPQRSTUVZ" | split: "" %}
+    {% for letter in letters %}
+    <li>{% if letter == page.letter -%}
+        <b>{{ letter }}</b>
+        {%- else -%}
+        <a href="{% link {{ letter }}.md %}">{{ letter }}</a>
+        {%- endif %}
+    </li>
+    {% endfor %}
+</ul>
+</nav>
