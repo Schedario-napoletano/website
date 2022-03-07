@@ -32,11 +32,6 @@
   padding: $spacing-unit 0;
 }
 
-.footer-heading {
-  @include relative-font-size(1.125);
-  margin-bottom: $spacing-unit / 2;
-}
-
 .footer-col-wrapper {
   @include relative-font-size(0.9375);
   color: $grey-color;
