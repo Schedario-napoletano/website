@@ -8,3 +8,5 @@ The code is under the MIT license. The content belongs its author, Giuseppe Giac
 It was downloaded from the Vesuvioweb website:
 - part 1: http://www.vesuvioweb.com/it/2012/01/giuseppe-giacco-schedario-napoletano/
 - part 2: http://www.vesuvioweb.com/it/2012/04/02-schedario-napoletano-parte-seconda-di-giuseppe-giacco/
+
+The logo is a modified version of [this image](https://commons.wikimedia.org/wiki/File:Vesuvio.png).
