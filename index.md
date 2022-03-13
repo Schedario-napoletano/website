@@ -8,4 +8,4 @@ layout: home
 Benvenuti sul sito del <i>Schedario napoletano</i>! Il sito non è ancora finito ma potete già cominciare a esplorarlo
 cliccando sulle lettere in alto.
 
-Al giorno d’oggi ci sono <b>21&nbsp;276 definizioni</b> di parole in lingua napoletana.
+Al giorno d’oggi ci sono <b>22&nbsp;443 definizioni</b> di parole in lingua napoletana.
