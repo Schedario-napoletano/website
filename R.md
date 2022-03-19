@@ -1,4 +1,0 @@
----
-layout: letter
-letter: R
----
