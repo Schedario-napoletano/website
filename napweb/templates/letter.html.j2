@@ -1,6 +1,18 @@
 {% extends "base.html.j2" %}
 {% block content %}
     {% include "letters_nav.html.j2" %}
-    {{ letter }}
-    {# TODO #}
+    <dl>
+        {% for definition in definitions %}
+            <dt><a href="{{ url_for("word_page", slug=definition.slug) }}">{{ definition.word }}</a></dt>
+            <dd>
+            {% if definition.qualifier %}<i>{{ definition.qualifier }}</i><br/>{% endif %}
+            {% if definition.definition_type == g.definition_types.alias %}
+                {# TODO at this point we don't have the target slug (we don't even know if the word exists) #}
+                &rarr;&nbsp;<a href="#TODO">{{ definition.target }}</a>
+            {% else %}
+                {{ definition.definition|safe }}
+            {% endif %}
+            </dd>
+        {% endfor %}
+    </dl>
 {% endblock %}

@@ -2,15 +2,13 @@ from slugify import slugify as slugify_
 
 
 def slugify(text: str) -> str:
-    # slugify_() drops the initial spaces/hyphens. We had an 'x' at the beginning to force them to be preserved then
-    # remove it after that.
+    # slugify_() drops the initial/trailing non-word characters. We want to preserve them to distinguish between the
+    # slugs of "a" vs. "‘a" vs. "a’!".
     # noinspection PyArgumentList
-    slug = slugify_("x" + text,
+    slug = slugify_("x" + text + "x",
                     allow_unicode=True,
                     lowercase=False,
                     replacements=(("'", "-"),
                                   ("’", "-"),
                                   ("‘", "-")))
-    if slug.startswith("x"):
-        slug = slug[1:]
-    return slug
+    return slug[1:-1]

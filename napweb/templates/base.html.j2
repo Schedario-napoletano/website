@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="it"><head>
+<html lang="it">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,11 +11,15 @@
     <script defer data-domain="schedarionapoletano.it" src="https://plausible.io/js/plausible.js"></script>
     <title>{% block title %}Schedario napoletano{% endblock %}</title>
 </head>
-<body><header class="site-header top" role="banner">
+<body>
+<header class="site-header top" role="banner">
     <div class="wrapper">
       <span class="site-title">
-    <a href="/">Schedario napoletano</a>
-    </span>
+    <a href="{{ url_for("home") }}">Schedario napoletano</a>
+          {% if letter %}
+              &nbsp;&rsaquo;&nbsp; {{ letter }}</span>
+          {% endif %}
+        </span>
     </div>
 </header>
 <main class="page-content" aria-label="Content">

@@ -1,7 +1,14 @@
 <nav class="letters-nav">
     <ul>
+    {% set current_letter = letter %}
         {% for letter in g.letters %}
-            <li><a href="{{ url_for("letter_index", letter=letter) }}">{{ letter }}</a></li>
+            <li>
+            {% if letter == current_letter %}
+            <b>{{ letter }}</b>
+            {% else %}
+            <a href="{{ url_for("letter_index", letter=letter) }}">{{ letter }}</a>
+            {% endif %}
+            </li>
         {% endfor %}
     </ul>
 </nav>
