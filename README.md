@@ -2,6 +2,14 @@
 
 This repository contains the content and source code used to build the website <https://schedarionapoletano.it/>.
 
+## Setup
+
+    poetry install
+
+## Tests
+
+    poetry run pytest
+
 ## License
 
 The code is under the MIT license. The content belongs its author, Giuseppe Giacco. It is used here with permission.

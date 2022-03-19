@@ -1,0 +1,42 @@
+# Note this is only used in local
+version: "3"
+
+services:
+  db:
+    # Production uses Postgres 14.1
+    image: postgres:14.1
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=nap_db
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    command: bash -c "poetry run alembic upgrade head && poetry run gunicorn napweb.main:app -b 0.0.0.0:8000 --reload"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - "POSTGRES_PORT=5433"
+      - "DEBUG=True"
+      - "DATABASE_URL=postgresql://postgres:postgres@db/nap_db"
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    profiles:
+      # use a custom profile so it doesn't run on every 'docker-compose up'
+      - tools
+
