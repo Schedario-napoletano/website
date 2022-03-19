@@ -1,0 +1,7 @@
+<nav class="letters-nav">
+    <ul>
+        {% for letter in g.letters %}
+            <li><a href="{{ url_for("letter_index", letter=letter) }}">{{ letter }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>

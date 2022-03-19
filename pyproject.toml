@@ -13,6 +13,10 @@ Flask = "^2.0.3"
 gunicorn = "^20.1.0"
 Flask-SQLAlchemy = "^2.5.1"
 python-slugify = "^6.1.1"
+Flask-Assets = "^2.0"
+jsmin = "^3.0.1"
+libsass = "^0.21.0"
+rcssmin = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.941"
