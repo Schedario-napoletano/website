@@ -47,8 +47,10 @@ def letter_index(letter, page=None):
     # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.BaseQuery.paginate
     pagination: Pagination = definitions_query.paginate(page, per_page=PAGE_SIZE, error_out=True)
 
+    sub_title = f"{letter} (pagina {page})" if page > 1 else letter
+
     # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.Pagination
-    return render_template("letter.html.j2", letter=letter, pagination=pagination)
+    return render_template("letter.html.j2", letter=letter, pagination=pagination, sub_title=sub_title)
 
 
 @app.route("/lettera/<letter>/pagina/<int:page>")

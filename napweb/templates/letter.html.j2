@@ -20,17 +20,27 @@
 
     {% if pagination.pages > 1 %}
         <div class="pagination">
-            {%- for page in pagination.iter_pages() %}
-                {% if page %}
-                    {% if page == pagination.page %}
-                        <b>{{ page }}</b>
-                    {% else %}
-                        <a href="{{ m.letter_page_url(letter, page) }}">{{ page }}</a>
-                    {% endif %}
-                {% else %}
-                    <span class=ellipsis>…</span>
+            <ul>
+                {% if pagination.prev_num %}
+                    <li><a href="{{ m.letter_page_url(letter, pagination.prev_num) }}"
+                           title="Pagina precedente">&lsaquo;</a></li>
                 {% endif %}
-            {%- endfor %}
+                {%- for page in pagination.iter_pages() %}
+                    {% if page %}
+                        {% if page == pagination.page %}
+                            <li><b>{{ page }}</b></li>
+                        {% else %}
+                            <li class="other-page"><a href="{{ m.letter_page_url(letter, page) }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li class="ellipsis">…</li>
+                    {% endif %}
+                {%- endfor %}
+                {% if pagination.next_num %}
+                    <li><a href="{{ m.letter_page_url(letter, pagination.next_num) }}"
+                           title="Pagina successiva">&rsaquo;</a></li>
+                {% endif %}
+            </ul>
         </div>
     {% endif %}
 {% endblock %}
