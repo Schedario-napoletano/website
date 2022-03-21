@@ -1,0 +1,24 @@
+{% import "macros.j2" as m %}
+{% if letter == "G" %}
+    <p class="notice">
+        N.B. Di molte parole si conserva la <b>g</b> che in realtà spesso suona <b>v-w</b>.
+    </p>
+{% elif letter == "I" %}
+    <p class="notice">
+        N.B. Nel passaggio dal latino, i termini che in italiano hanno acquisito la
+        <b><a href="{{ m.letter_page_url("G") }}">g</a></b> iniziale, la fanno sentire anche in napoletano, se essi sono
+        preceduti dall’articolo. Si avvisa altresì che per semplificare, in questo repertorio la
+        <b><a href="{{ m.letter_page_url("J") }}">j</a></b> viene scritta
+        <b><a href="{{ m.letter_page_url("I") }}">i</a></b> ma essa è spesso la semivocale <b>j</b> di derivazione
+        latina (e <i lang="lat">jocus</i>), oppure
+        conserva suoni greci oggi scomparsi (<i>feugo</i>: <i><b>fujo</b></i>; <i>bofos</i>: <i>boos</i>;
+        <i><b>vojo</b></i>: <i>bue</i>).
+    </p>
+{% elif letter == "J" %}
+    <p class="notice">
+        N.B. La varietà dei modi con cui vengono scritte le parole che iniziano o comprendono
+        la <b>j</b> ha persuaso
+        l’autore a semplificare, perciò al posto di <b>j</b> o <b>ji</b> si cerchi semplicemente
+        <b><a href="{{ m.letter_page_url("I") }}">i</a></b> o <b><a href="{{ m.letter_page_url("G") }}">ghi</a></b>.
+    </p>
+{% endif %}

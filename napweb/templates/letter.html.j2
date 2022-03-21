@@ -9,6 +9,7 @@
 {% endblock %}
 {% block content %}
     {% include "letters_nav.html.j2" %}
+    {% include "letter_notice.html.j2" %}
     <ul>
         {% for definition in pagination.items %}
             <li><b><a href="{{ url_for("word_page", slug=definition.slug) }}">{{ definition.word }}</a></b>
@@ -16,15 +17,6 @@
             </li>
         {% endfor %}
     </ul>
-
-    {% if letter == "J" %}
-        <p class="notice">
-            N.B. La varietà dei modi con cui vengono scritte le parole che iniziano o comprendono
-            la <b>j</b> ha persuaso
-            l’autore a semplificare, perciò al posto di <b>j</b> o <b>ji</b> si cerchi semplicemente
-            <b><a href="{{ m.letter_page_url("I") }}">i</a></b> o <b><a href="{{ m.letter_page_url("G") }}">ghi</a></b>.
-        </p>
-    {% endif %}
 
     {% if pagination.pages > 1 %}
         <div class="pagination">
