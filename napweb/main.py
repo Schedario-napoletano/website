@@ -1,11 +1,14 @@
-from flask import render_template, g, abort
+from flask import render_template, g, abort, url_for, redirect
 from flask_assets import Environment
+from flask_sqlalchemy import Pagination
 from webassets import Bundle
 
 from .app import app
 from .database import Definition, type2enum
 
 app.jinja_options["autoescape"] = lambda _: True
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
 assets = Environment(app)
 # js = Bundle(...,
@@ -17,6 +20,7 @@ all_css = Bundle(sass, filters='rcssmin', output="css/main.min.css")
 assets.register('css_all', all_css)
 
 LETTERS = "A B C D E F G H I J L M N O P Q R S T U V Z".split(" ")
+PAGE_SIZE = 150
 
 
 @app.before_request
@@ -31,14 +35,32 @@ def home():
 
 
 @app.route("/lettera/<letter>")
-def letter_index(letter):
-    # TODO pagination
+def letter_index(letter, page=None):
     if letter not in LETTERS:
         abort(404)
 
-    definitions = Definition.query.filter(Definition.initial_letter == letter).all()
+    if page is None:
+        page = 1
 
-    return render_template("letter.html.j2", letter=letter, definitions=definitions)
+    definitions_query = Definition.query.filter(Definition.initial_letter == letter)
+    # error_out makes it return a 404 if there are no items or the page is wrong (e.g. negative)
+    # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.BaseQuery.paginate
+    pagination: Pagination = definitions_query.paginate(page, per_page=PAGE_SIZE, error_out=True)
+
+    # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.Pagination
+    return render_template("letter.html.j2", letter=letter, pagination=pagination)
+
+
+@app.route("/lettera/<letter>/pagina/<int:page>")
+def paginated_letter_index(letter, page):
+    if page < 1:
+        abort(404)
+
+    # /lettera/X/pagina/1 should be /lettera/X
+    if page == 1:
+        return redirect(url_for("letter_index", letter=letter))
+
+    return letter_index(letter, page=page)
 
 
 @app.route("/parola/<slug>")

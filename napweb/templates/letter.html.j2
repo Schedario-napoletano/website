@@ -1,11 +1,44 @@
 {% extends "base.html.j2" %}
+{% block head %}
+    {% if pagination.prev_num -%}
+        <link rel="prev" href="{{ m.letter_page_url(letter, pagination.prev_num) }}">
+    {%- endif %}
+    {% if pagination.next_num -%}
+        <link rel="next" href="{{ m.letter_page_url(letter, pagination.next_num) }}">
+    {%- endif %}
+{% endblock %}
 {% block content %}
     {% include "letters_nav.html.j2" %}
     <ul>
-        {% for definition in definitions %}
+        {% for definition in pagination.items %}
             <li><b><a href="{{ url_for("word_page", slug=definition.slug) }}">{{ definition.word }}</a></b>
-            {% if definition.qualifier %}– <i>{{ definition.qualifier }}</i>{% endif %}
+                {% if definition.qualifier %}– <i>{{ definition.qualifier }}</i>{% endif %}
             </li>
         {% endfor %}
     </ul>
+
+    {% if letter == "J" %}
+        <p class="notice">
+            N.B. La varietà dei modi con cui vengono scritte le parole che iniziano o comprendono
+            la <b>j</b> ha persuaso
+            l’autore a semplificare, perciò al posto di <b>j</b> o <b>ji</b> si cerchi semplicemente
+            <b><a href="{{ m.letter_page_url("I") }}">i</a></b> o <b><a href="{{ m.letter_page_url("G") }}">ghi</a></b>.
+        </p>
+    {% endif %}
+
+    {% if pagination.pages > 1 %}
+        <div class="pagination">
+            {%- for page in pagination.iter_pages() %}
+                {% if page %}
+                    {% if page == pagination.page %}
+                        <b>{{ page }}</b>
+                    {% else %}
+                        <a href="{{ m.letter_page_url(letter, page) }}">{{ page }}</a>
+                    {% endif %}
+                {% else %}
+                    <span class=ellipsis>…</span>
+                {% endif %}
+            {%- endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

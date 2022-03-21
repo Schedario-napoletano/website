@@ -1,0 +1,7 @@
+{%- macro letter_page_url(letter, page=1) -%}
+    {%- if page == 1 -%}
+        {{ url_for("letter_index", letter=letter) }}
+    {%- else -%}
+        {{ url_for("paginated_letter_index", letter=letter, page=page) }}
+    {%- endif -%}
+{%- endmacro -%}
