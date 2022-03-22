@@ -4,17 +4,47 @@
 {%- endblock %}
 {% block content %}
     {% include "letters_nav.html.j2" %}
+
+    {% if definition.definition %}
+    {# https://schema.org/DefinedTerm #}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "DefinedTerm",
+            "name": {{ definition.word | tojson }},
+            "termCode": {{ definition.slug | tojson }},
+            "description": {{ definition.definition | tojson }},
+            "inDefinedTermSet": "https://www.schedarionapoletano.it/"
+        }
+    </script>
+    {% endif %}
+
     {# TODO #}
     <dl>
         <dt>{{ definition.word }}</dt>
         <dd>
-            {% if definition.qualifier %}<i>{{ definition.qualifier }}</i><br/>{% endif %}
+            {% if definition.qualifier %}<i class="qualifier">{{ definition.qualifier }}</i><br/>{% endif %}
             {% if definition.definition_type == g.definition_types.alias %}
-                {# TODO at this point we don't have the target slug (we don't even know if the word exists) #}
+                {# TODO: at this point we don't have the target slug (we don't even know if the word exists) #}
                 &rarr;&nbsp;<a href="#TODO">{{ definition.target }}</a>
             {% else %}
                 {{ definition.definition|safe }}
             {% endif %}
         </dd>
     </dl>
+    <nav class="pagination">
+        <ul>
+            {% if prev_definition %}
+                <li>
+                    <a href="{{ url_for("word_page", slug=prev_definition.slug) }}">&lsaquo; {{ prev_definition.word }}</a>
+                </li>
+            {% endif %}
+            {% if next_definition %}
+                <li>
+                    <a href="{{ url_for("word_page", slug=next_definition.slug) }}">{{ next_definition.word }}
+                        &rsaquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}

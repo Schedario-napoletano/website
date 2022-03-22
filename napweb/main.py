@@ -1,10 +1,12 @@
+from typing import Optional
+
 from flask import render_template, g, abort, url_for, redirect
 from flask_assets import Environment
 from flask_sqlalchemy import Pagination
 from webassets import Bundle
 
 from .app import app
-from .database import Definition, type2enum
+from .database import Definition, type2enum, get_prev_next_definitions
 
 app.jinja_options["autoescape"] = lambda _: True
 app.jinja_env.trim_blocks = True
@@ -69,7 +71,13 @@ def paginated_letter_index(letter, page):
 def word_page(slug):
     # TODO prev / next definitions
     definition = Definition.query.filter(Definition.slug == slug).limit(1).first_or_404()
-    return render_template("word.html.j2", definition=definition)
+
+    prev_definition, next_definition = get_prev_next_definitions(definition)
+
+    return render_template("word.html.j2",
+                           definition=definition,
+                           prev_definition=prev_definition,
+                           next_definition=next_definition)
 
 
 @app.route("/a-proposito")

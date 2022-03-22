@@ -19,7 +19,7 @@
     </ul>
 
     {% if pagination.pages > 1 %}
-        <div class="pagination">
+        <nav class="pagination">
             <ul>
                 {% if pagination.prev_num %}
                     <li><a href="{{ m.letter_page_url(letter, pagination.prev_num) }}"
@@ -41,6 +41,6 @@
                            title="Pagina successiva">&rsaquo;</a></li>
                 {% endif %}
             </ul>
-        </div>
+        </nav>
     {% endif %}
 {% endblock %}

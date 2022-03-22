@@ -1,5 +1,5 @@
 import enum
-from typing import Dict
+from typing import Dict, Optional
 
 import sqlalchemy as sa
 from sqlalchemy import Index, CheckConstraint
@@ -53,6 +53,23 @@ class Definition(db.Model):
         # https://www.postgresql.org/docs/10/functions-comparison.html#FUNCTIONS-COMPARISON-FUNC-TABLE
         CheckConstraint('num_nonnulls(definition, target) > 0'),
     )
+
+
+def get_prev_next_definitions(definition: Definition):
+    # Let’s do both in one query
+    surrounding_definitions = Definition.query \
+        .filter((Definition.id == definition.id - 1) | (Definition.id == definition.id + 1)).all()
+
+    prev_definition: Optional[Definition] = None
+    next_definition: Optional[Definition] = None
+
+    for surrounding_definition in surrounding_definitions:
+        if surrounding_definition.id < definition.id:
+            prev_definition = surrounding_definition
+        else:
+            next_definition = surrounding_definition
+
+    return prev_definition, next_definition
 
 
 def definition_from_dict(d: dict):
