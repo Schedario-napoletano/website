@@ -1,4 +1,5 @@
 {% extends "base.html.j2" %}
+{% import "macros.j2" as m %}
 {% block head %}
     {% if pagination.prev_num -%}
         <link rel="prev" href="{{ m.letter_page_url(letter, pagination.prev_num) }}">
@@ -12,7 +13,7 @@
     {% include "letter_notice.html.j2" %}
     <ul>
         {% for definition in pagination.items %}
-            <li><b><a href="{{ url_for("word_page", slug=definition.slug) }}">{{ definition.word }}</a></b>
+            <li><b><a href="{{ m.definition_page_url(definition) }}">{{ definition.word }}</a></b>
                 {% if definition.qualifier %}– <i>{{ definition.qualifier }}</i>{% endif %}
             </li>
         {% endfor %}

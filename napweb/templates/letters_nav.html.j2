@@ -1,13 +1,18 @@
 <nav class="letters-nav">
     <ul>
-    {% set current_letter = letter %}
+        {% set current_letter = letter %}
         {% for letter in g.letters %}
             <li>
-            {% if letter == current_letter %}
-            <b>{{ letter }}</b>
-            {% else %}
-            <a href="{{ url_for("letter_index", letter=letter) }}">{{ letter }}</a>
-            {% endif %}
+                {% if letter == current_letter %}
+                    <b>{{ letter }}</b>
+                {% else %}
+                    {% set url = url_for("letter_index", letter=letter) %}
+                    {% if definition and letter == definition.initial_letter %}
+                        <a href="{{ url }}"><b>{{ letter }}</b></a>
+                    {% else %}
+                        <a href="{{ url }}">{{ letter }}</a>
+                    {% endif %}
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

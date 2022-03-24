@@ -36,12 +36,12 @@
         <ul>
             {% if prev_definition %}
                 <li>
-                    <a href="{{ url_for("word_page", slug=prev_definition.slug) }}">&lsaquo; {{ prev_definition.word }}</a>
+                    <a href="{{ m.definition_page_url(prev_definition) }}">&lsaquo; {{ prev_definition.word }}</a>
                 </li>
             {% endif %}
             {% if next_definition %}
                 <li>
-                    <a href="{{ url_for("word_page", slug=next_definition.slug) }}">{{ next_definition.word }}
+                    <a href="{{ m.definition_page_url(next_definition) }}">{{ next_definition.word }}
                         &rsaquo;</a>
                 </li>
             {% endif %}

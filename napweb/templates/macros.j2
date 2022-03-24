@@ -5,3 +5,7 @@
         {{ url_for("paginated_letter_index", letter=letter, page=page) }}
     {%- endif -%}
 {%- endmacro -%}
+
+{%- macro definition_page_url(definition) -%}
+    {{ url_for("word_page", slug=definition.slug) }}#{{ definition.id }}
+{%- endmacro -%}
