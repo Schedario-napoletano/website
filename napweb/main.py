@@ -44,7 +44,7 @@ def letter_index(letter, page=None):
     if page is None:
         page = 1
 
-    definitions_query = Definition.query.filter(Definition.initial_letter == letter)
+    definitions_query = Definition.query.filter(Definition.initial_letter == letter).order_by(Definition.id)
     # error_out makes it return a 404 if there are no items or the page is wrong (e.g. negative)
     # https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.BaseQuery.paginate
     pagination: Pagination = definitions_query.paginate(page, per_page=PAGE_SIZE, error_out=True)
