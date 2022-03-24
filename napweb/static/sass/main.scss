@@ -14,6 +14,7 @@ $spacing-unit: 30px !default;
 $text-color: #111 !default;
 $background-color: #fdfdfd !default;
 $brand-color: #2a7ae2 !default;
+$text-highlight-color: #ffff24;
 
 
 $grey-color: #828282 !default;
@@ -68,6 +69,10 @@ p, blockquote, pre, hr, ol, ul, figure {
   padding: 0;
 }
 
+abbr {
+  text-decoration-line: none;
+}
+
 
 /**
  * Basic styling
@@ -91,11 +96,17 @@ body {
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
-h1, h2, h3, h4, h5, h6,
-p, blockquote, pre,
-ul, ol, dl, figure,
+h1, h4, h5, h6,
+p, // blockquote,
+ul, ol, dl, // figure,
 %vertical-rhythm {
   margin-bottom: $spacing-unit / 2;
+}
+h2 {
+  margin-bottom: $spacing-unit / 3;
+}
+h3 {
+  margin-bottom: $spacing-unit / 4;
 }
 
 
@@ -216,28 +227,6 @@ blockquote {
     max-width: calc(#{$content-width} - (#{$spacing-unit} * 2));
     padding-right: $spacing-unit;
     padding-left: $spacing-unit;
-  }
-}
-
-// Abbreviations page
-dl.abbrs {
-  dt, dd {
-    float: left;
-  }
-
-  dt {
-    font-style: italic;
-    font-weight: normal;
-    clear: left;
-  }
-
-  dd {
-    margin-inline-start: .8ex;
-    margin-bottom: 5px;
-
-    &::before {
-      content: "= ";
-    }
   }
 }
 
@@ -413,7 +402,49 @@ dd {
   margin-bottom: $spacing-unit;
 }
 
-.up {
-  float: right;
-  margin-bottom: $spacing-unit;
+
+// Abbreviations page
+dl.abbrs {
+  dt, dd {
+    float: left;
+  }
+
+  dt {
+    font-style: italic;
+    font-weight: normal;
+    clear: left;
+  }
+
+  dd {
+    margin-inline-start: .8ex;
+    margin-bottom: 5px;
+
+    &::before {
+      content: "= ";
+    }
+  }
+}
+
+
+// Intro page
+.intro {
+  ul {
+    // follow the style of the PDF document
+    list-style-type: '- ';
+  }
+
+  .notes {
+    margin-top: $spacing-unit;
+    font-size: $small-font-size;
+
+    :target span {
+      background-color: $text-highlight-color;
+    }
+
+    .sep3 {
+      border-top: 1px solid $text-color;
+      width: 33%;
+      margin-bottom: $spacing-unit / 4;
+    }
+  }
 }

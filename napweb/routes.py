@@ -65,10 +65,14 @@ def word_page(slug):
 
 @app.route("/a-proposito")
 def a_proposito():
-    return render_template("about.html.j2")
+    return render_template("about.html.j2", sub_title="A proposito")
 
 
 @app.route("/abbreviazioni")
 def abbreviations():
-    return render_template("abbreviations.html.j2",
-                           sub_title="Abbreviazioni")
+    return render_template("abbreviations.html.j2", sub_title="Abbreviazioni")
+
+
+@app.route("/introduzione")
+def introduction():
+    return render_template("intro.html.j2", sub_title="Introduzione")
