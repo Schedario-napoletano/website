@@ -1,0 +1,104 @@
+{# from nap/definitions.py #}
+{% set abbrs = {
+"abbr": "abbreviazione",
+"accr": "accrescitivo",
+"af": "aferesi",
+"agg": ["aggettivo", "aggettivale", "aggettivato"],
+"alt": "alterazione",
+"ant": "antico",
+"ap": "apocope",
+"artt": "preposizione articolata",
+"aus": "verbo ausiliare",
+"avv": ["avverbio", "locuzione avverbiale"],
+"c": "complemento",
+"card": "aggettivo numerale cardinale",
+"cond": "condizionale",
+"cong": "congiunzione",
+"congiunt": "congiuntivo",
+"contr": "contrazione",
+"corr": "correttamente",
+"det": "articolo determinativo",
+"dim": "diminuitivo",
+"distr": "aggettivo numerale distributivo",
+"ecc": "eccetera",
+"eccl": "ecclesiastico",
+"el": "elisione",
+"ep": "epentesi",
+"es": "esempio",
+"escl": ["esclamazione", "esclamativo"],
+"f": "sostantivo femminile",
+"fig": "figuratamente",
+"fr": "francese",
+"fraz": "aggettivo numerale frazionario",
+"freq": ["frequente", "frequentativo"],
+"fut": "futuro",
+"ger": "gerundio",
+"giapp": "giapponese",
+"gr": "greco",
+"impf": "imperfetto",
+"impt": "imperativo",
+"ind": "indicativo",
+"indef": "aggettivo e/o pronome indefinito",
+"indet": "articolo indeterminativo",
+"inf": "infantile",
+"ingl": "inglese",
+"inter": "interiezione",
+"interr": "aggettivo e/o pronome interrogativo",
+"intr": "verbo intransitivo",
+"ir": ["ironico", "ironicamente"],
+"it": ["italianizzazione", "italiano", "italianizzato"],
+"l": ["lettura", "leggere"],
+"lat": "latino",
+"m": "sostantivo maschile",
+"nap": "napoletano-e",
+"neg": "negazione",
+"neol": "neologismo",
+"onom": ["onomatopea", "onomatopeico"],
+"ord": "aggettivo numerale ordinale",
+"p": "passato",
+"part": "participio",
+"pl": "plurale",
+"poss": "aggettivo e/o pronome possessivo",
+"pr": "proverbio",
+"prep": "preposizione",
+"pres": "presente",
+"pron": ["pronome", "pronominale"],
+"prop": "nome proprio",
+"prov": "provenzale",
+"raff": "rafforzativo",
+"rem": "passato remoto",
+"rifl": "verbo riflessivo",
+"sec": "secolo",
+"sinc": "sincope",
+"s": "singolare",
+"sinon": "sinonimo",
+"sp": "spagnolo",
+"spr": "spregiativo",
+"sup": "superlativo",
+"ted": "tedesco",
+"tr": "verbo transitivo",
+"tronc": "troncamento",
+"v": ["vedere", "vedi"],
+"vezz": "vezzeggiativo",
+"voc": "vocativo",
+} %}
+{% extends "base.html.j2" %}
+{% block content %}
+    <article class="post">
+        <header class="post-header">
+            <h1 class="post-title">Abbreviazioni usate</h1>
+        </header>
+        <div class="post-content">
+            <dl class="abbrs">
+                {% for abbr, expanded in abbrs.items() %}
+                    <dt>{{ abbr }}.</dt>
+                    <dd>
+                    {%- if expanded is string -%}
+                        {{ expanded }}
+                    {%- else -%}
+                        {{ expanded|join(", ") }}
+                    {%- endif -%}.
+                {% endfor %}
+            </dl>
+        </div>
+{% endblock %}

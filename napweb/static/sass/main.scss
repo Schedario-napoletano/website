@@ -232,8 +232,12 @@ dl.abbrs {
   }
 
   dd {
-    margin-inline-start: 5px;
+    margin-inline-start: .8ex;
     margin-bottom: 5px;
+
+    &::before {
+      content: "= ";
+    }
   }
 }
 
@@ -291,6 +295,11 @@ dl.abbrs {
 
 .footer-col {
   display: inline-flex;
+
+  ul {
+    list-style-type: none;
+    margin-left: 0;
+  }
 }
 
 
