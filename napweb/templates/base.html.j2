@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ ASSET_URL }}">
     {% endassets %}
     <script defer data-domain="schedarionapoletano.it" src="https://plausible.io/js/plausible.js"></script>
-    <title>{% block title %}Schedario napoletano{% if sub_title %}· {{ sub_title }}{% endif %}{% endblock %}</title>
+    <title>{% block title %}Schedario napoletano{% if sub_title %} · {{ sub_title }}{% endif %}{% endblock %}</title>
     {% block head %}{% endblock %}
 </head>
 <body>

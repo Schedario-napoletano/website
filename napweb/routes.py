@@ -14,6 +14,16 @@ def populate_g():
     g.definition_types = type2enum
 
 
+@app.errorhandler(404)
+def page_not_found(_e):
+    return render_template("404.html.j2", sub_title="404"), 404
+
+
+@app.errorhandler(500)
+def server_error(_e):
+    return render_template("500.html.j2", sub_title="500"), 500
+
+
 @app.route("/")
 def home():
     return render_template("home.html.j2")
