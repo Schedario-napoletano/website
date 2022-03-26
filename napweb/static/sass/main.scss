@@ -3,32 +3,26 @@
 
 // Define defaults for each variable.
 
-$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$base-font-size: 16px !default;
-$base-font-weight: 400 !default;
-$small-font-size: $base-font-size * 0.875 !default;
-$base-line-height: 1.5 !default;
+$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$base-font-size: 18px;
+$base-font-weight: 400;
+$small-font-size: $base-font-size * 0.875;
+$base-line-height: 1.5;
 
-$spacing-unit: 30px !default;
+$spacing-unit: 30px;
 
-$text-color: #111 !default;
-$background-color: #fdfdfd !default;
-$brand-color: #2a7ae2 !default;
+$text-color: #111;
+$background-color: #fdfdfd;
+$brand-color: #2a7ae2;
 $text-highlight-color: #ffff24;
 
 
-$grey-color: #828282 !default;
-$grey-color-light: lighten($grey-color, 40%) !default;
-$grey-color-dark: darken($grey-color, 25%) !default;
-
-$table-text-align: left !default;
-
-// 380px
-// 768px
-// 1024px
+$grey-color: #828282;
+$grey-color-light: lighten($grey-color, 40%);
+$grey-color-dark: darken($grey-color, 25%);
 
 // Width of the content area
-$content-width: 800px !default;
+$content-width: 800px;
 
 $smartphone: 380px;
 $tablet: 768px;
@@ -47,7 +41,6 @@ $desktop: 1024px;
   }
 }
 
-
 @mixin relative-font-size($ratio) {
   font-size: $base-font-size * $ratio;
 }
@@ -64,7 +57,8 @@ $desktop: 1024px;
  * Reset some basic elements
  */
 body, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, hr, ol, ul, figure {
+p, // blockquote, pre, figure,
+hr, ol, ul {
   margin: 0;
   padding: 0;
 }
@@ -97,14 +91,16 @@ body {
  * Set `margin-bottom` to maintain vertical rhythm
  */
 h1, h4, h5, h6,
-p, // blockquote,
-ul, ol, dl, // figure,
+p, // blockquote, figure,
+ul, ol, dl,
 %vertical-rhythm {
   margin-bottom: $spacing-unit / 2;
 }
+
 h2 {
   margin-bottom: $spacing-unit / 3;
 }
+
 h3 {
   margin-bottom: $spacing-unit / 4;
 }
@@ -360,18 +356,47 @@ blockquote {
     margin-left: 0;
     max-width: 100%;
     @include flexbox();
-    justify-content: space-around;
+    align-content: flex-start;
     flex-wrap: wrap;
+    column-gap: 1em;
 
     @include media-query($tablet) {
       flex-wrap: nowrap;
+      font-size: 1em;
     }
   }
 
   li {
     list-style-type: none;
     display: inline-flex;
+  }
+}
 
+.letters-nav {
+  li {
+    // slightly larger on small screens
+    font-size: 1.1em;
+
+    a {
+      display: inline-block;
+      padding: 2px;
+    }
+
+    @include media-query($tablet) {
+      font-size: 1em;
+      a {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.pagination {
+  ul {
+    justify-content: space-around;
+  }
+
+  li {
     &.other-page, &.ellipsis {
       display: none;
 
@@ -379,10 +404,6 @@ blockquote {
         display: inline-flex;
       }
     }
-  }
-
-  li + li {
-    margin-left: .5em;
   }
 }
 
