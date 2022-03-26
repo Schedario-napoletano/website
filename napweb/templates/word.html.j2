@@ -1,4 +1,5 @@
 {% extends "base.html.j2" %}
+{% import "macros.j2" as m %}
 {% block title -%}
     {{ definition.word }} · Schedario napoletano
 {%- endblock %}
@@ -6,8 +7,8 @@
     {% include "letters_nav.html.j2" %}
 
     {% if definition.definition %}
-    {# https://schema.org/DefinedTerm #}
-    <script type="application/ld+json">
+        {# https://schema.org/DefinedTerm #}
+        <script type="application/ld+json">
         {
             "@context": "https://schema.org/",
             "@type": "DefinedTerm",
@@ -16,17 +17,21 @@
             "description": {{ definition.definition | tojson }},
             "inDefinedTermSet": "https://www.schedarionapoletano.it/"
         }
-    </script>
+        </script>
     {% endif %}
 
-    {# TODO #}
     <dl>
         <dt>{{ definition.word }}</dt>
         <dd>
             {% if definition.qualifier %}<i class="qualifier">{{ definition.qualifier }}</i><br/>{% endif %}
             {% if definition.definition_type == g.definition_types.alias %}
-                {# TODO: at this point we don't have the target slug (we don't even know if the word exists) #}
-                &rarr;&nbsp;<a href="#TODO">{{ definition.target }}</a>
+                &rarr;&nbsp;
+                {% if definition.target %}
+                    <a href="{{ m.definition_page_url(definition.target) }}">{{ definition.target_text }}</a>
+                {% else %}
+                    {# target with no known definition #}
+                    {{ definition.target_text }}
+                {% endif %}
             {% else %}
                 {{ definition.definition|safe }}
             {% endif %}

@@ -5,6 +5,7 @@ import sqlalchemy as sa
 from sqlalchemy import Index, CheckConstraint
 from sqlalchemy.dialects.postgresql import TSVECTOR
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
 
 from napweb.app import app
 from napweb.utils import slugify
@@ -42,16 +43,15 @@ class Definition(db.Model):
     definition = db.Column(db.UnicodeText, nullable=True)
 
     # for aliases
-    target = db.Column(db.Unicode, nullable=True)
+    target_id = db.Column(db.Integer, db.ForeignKey('definition.id'), index=True)
+    target = relationship(lambda: Definition, remote_side=id, backref='variations')
+    target_text = db.Column(db.Unicode, nullable=True)
 
     # https://amitosh.medium.com/full-text-search-fts-with-postgresql-and-sqlalchemy-edc436330a0c
     __ts_vector__ = db.Column(TSVector(),
                               db.Computed("to_tsvector('italian', word || ' ' || definition)", persisted=True))
     __table_args__ = (
         Index('ix_definition___ts_vector__', __ts_vector__, postgresql_using='gin'),
-        # Ensure at least one of definition/target is non-null
-        # https://www.postgresql.org/docs/10/functions-comparison.html#FUNCTIONS-COMPARISON-FUNC-TABLE
-        CheckConstraint('num_nonnulls(definition, target) > 0'),
     )
 
 
@@ -80,7 +80,7 @@ def definition_from_dict(d: dict):
         initial_letter=d["initial_letter"],
         qualifier=d.get("qualifier"),
         definition=d.get("definition"),
-        target=d.get("target"),
+        target_text=d.get("target"),
     )
 
     return definition
