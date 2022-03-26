@@ -8,8 +8,7 @@ ENV POETRY_VIRTUALENVS_IN_PROJECT false
 WORKDIR /app/
 
 # dependencies
-RUN pip install -U pip
-RUN pip install poetry
+RUN pip install -U pip poetry
 COPY pyproject.toml poetry.lock /app/
 RUN poetry install
 
