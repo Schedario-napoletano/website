@@ -1,3 +1,4 @@
+import htmlmin
 from flask import render_template, g, abort, url_for, redirect
 from flask_sqlalchemy import Pagination
 from flask_assets import Environment
@@ -27,6 +28,18 @@ PAGE_SIZE = 150
 def populate_g():
     g.letters = LETTERS
     g.definition_types = type2enum
+
+
+@app.after_request
+def minify_html(response):
+    if not app.debug and response.content_type.startswith("text/html"):
+        response.set_data(
+            htmlmin.minify(response.get_data(as_text=True),
+                           remove_comments=True,
+                           remove_empty_space=True)
+        )
+
+    return response
 
 
 @app.errorhandler(404)

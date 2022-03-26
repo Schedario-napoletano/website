@@ -17,6 +17,7 @@ Flask-Assets = "^2.0"
 jsmin = "^3.0.1"
 libsass = "^0.21.0"
 rcssmin = "^1.1.0"
+htmlmin = "^0.1.12"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.941"

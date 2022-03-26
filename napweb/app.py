@@ -8,4 +8,5 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"].replace("postgres://", "postgresql://")
 
 if os.environ.get("DEBUG"):
+    app.debug = True
     app.config["TEMPLATES_AUTO_RELOAD"] = True
