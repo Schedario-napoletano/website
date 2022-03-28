@@ -9,3 +9,13 @@
 {%- macro definition_page_url(definition) -%}
     {{ url_for("word_page", slug=definition.slug) }}
 {%- endmacro -%}
+
+{%- macro definitions_list(definitions) -%}
+<ul>
+    {% for definition in definitions %}
+        <li><a href="{{ definition_page_url(definition) }}">{{ definition.word }}</a>
+            {% if definition.qualifier %}– <i>{{ definition.qualifier }}</i>{% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{%- endmacro -%}

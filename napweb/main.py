@@ -1,11 +1,11 @@
 import htmlmin
-from flask import render_template, g, abort, url_for, redirect
+from flask import render_template, g, abort, url_for, redirect, request
 from flask_sqlalchemy import Pagination
 from flask_assets import Environment
 from webassets import Bundle
 
 from .app import app
-from .database import Definition, get_prev_next_definitions, type2enum
+from .database import Definition, get_prev_next_definitions, type2enum, search_definitions
 
 app.jinja_options["autoescape"] = lambda _: True
 app.jinja_env.trim_blocks = True
@@ -22,6 +22,7 @@ assets.register('css_all', all_css)
 
 LETTERS = "A B C D E F G H I J L M N O P Q R S T U V Z".split(" ")
 PAGE_SIZE = 150
+MAX_SEARCH_RESULTS = 20
 
 
 @app.before_request
@@ -98,6 +99,20 @@ def word_page(slug):
                            definition=definition,
                            prev_definition=prev_definition,
                            next_definition=next_definition)
+
+
+@app.route("/search")
+def search():
+    query = request.args.get("q", "")
+
+    definitions = search_definitions(query)
+
+    return render_template("search.html.j2",
+                           definitions=definitions,
+                           search_query=query)
+    # TODO
+    # https://amitosh.medium.com/full-text-search-fts-with-postgresql-and-sqlalchemy-edc436330a0c
+    # https://github.com/recrsn/video-gallery/blob/master/migrations/versions/7f9863909887_.py
 
 
 @app.route("/a-proposito")

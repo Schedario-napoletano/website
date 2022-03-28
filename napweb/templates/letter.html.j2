@@ -11,13 +11,7 @@
 {% block content %}
     {% include "letters_nav.html.j2" %}
     {% include "letter_notice.html.j2" %}
-    <ul>
-        {% for definition in pagination.items %}
-            <li><b><a href="{{ m.definition_page_url(definition) }}">{{ definition.word }}</a></b>
-                {% if definition.qualifier %}– <i>{{ definition.qualifier }}</i>{% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    {{ m.definitions_list(pagination.items) }}
 
     {% if pagination.pages > 1 %}
         <nav class="pagination">

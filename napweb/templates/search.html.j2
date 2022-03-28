@@ -1,0 +1,11 @@
+{% extends "base.html.j2" %}
+{% import "macros.j2" as m %}
+{% block content %}
+    <div class="search">
+        {% include "letters_nav.html.j2" %}
+        {% include "search_bar.html.j2" %}
+    </div>
+
+    {{ m.definitions_list(definitions) }}
+
+{% endblock %}
