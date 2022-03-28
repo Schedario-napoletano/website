@@ -2,21 +2,13 @@ import enum
 from typing import Dict, Optional
 
 import sqlalchemy as sa
-from sqlalchemy import Index, CheckConstraint
-from sqlalchemy.dialects.postgresql import TSVECTOR
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 
-from napweb.app import app
-from napweb.utils import slugify
+from .app import app
+from .utils import slugify
 
 db = SQLAlchemy(app)
-
-
-# https://amitosh.medium.com/full-text-search-fts-with-postgresql-and-sqlalchemy-edc436330a0c
-# noinspection PyAbstractClass
-class TSVector(sa.types.TypeDecorator):
-    impl = TSVECTOR
 
 
 class DefinitionType(enum.Enum):
@@ -37,6 +29,7 @@ class Definition(db.Model):
     initial_letter = db.Column(db.String(1), nullable=False, index=True)
 
     # use an int instead of an enum type because it’s a nightmare to change later
+    # noinspection SqlAlchemyUnsafeQuery
     definition_type = db.Column(db.SmallInteger, server_default=sa.text(str(DefinitionType.default.value)))
 
     qualifier = db.Column(db.String, nullable=True)
@@ -46,13 +39,6 @@ class Definition(db.Model):
     target_id = db.Column(db.Integer, db.ForeignKey('definition.id'), index=True)
     target = relationship(lambda: Definition, remote_side=id, backref='variations')
     target_text = db.Column(db.Unicode, nullable=True)
-
-    # https://amitosh.medium.com/full-text-search-fts-with-postgresql-and-sqlalchemy-edc436330a0c
-    __ts_vector__ = db.Column(TSVector(),
-                              db.Computed("to_tsvector('italian', word || ' ' || definition)", persisted=True))
-    __table_args__ = (
-        Index('ix_definition___ts_vector__', __ts_vector__, postgresql_using='gin'),
-    )
 
 
 def get_prev_next_definitions(definition: Definition):

@@ -9,12 +9,16 @@ from alembic import op
 import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
-from napweb.database import TSVector
+from sqlalchemy.dialects.postgresql import TSVECTOR
 
 revision = 'ec5136ec9dab'
 down_revision = None
 branch_labels = None
 depends_on = None
+
+
+class TSVector(sa.types.TypeDecorator):
+    impl = TSVECTOR
 
 
 def upgrade():
