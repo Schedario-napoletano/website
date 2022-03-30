@@ -82,23 +82,17 @@
 "vezz": "vezzeggiativo",
 "voc": "vocativo",
 } %}
-{% extends "base.html.j2" %}
-{% block content %}
-    <article class="post">
-        <header class="post-header">
-            <h1 class="post-title">Abbreviazioni usate</h1>
-        </header>
-        <div class="post-content">
-            <dl class="abbrs">
-                {% for abbr, expanded in abbrs.items() %}
-                    <dt>{{ abbr }}.</dt>
-                    <dd>
-                    {%- if expanded is string -%}
-                        {{ expanded }}
-                    {%- else -%}
-                        {{ expanded|join(", ") }}
-                    {%- endif -%}.
-                {% endfor %}
-            </dl>
-        </div>
+{% extends "simple_page.html.j2" %}
+{% block page_content %}
+    <dl class="abbrs">
+        {% for abbr, expanded in abbrs.items() %}
+            <dt>{{ abbr }}.</dt>
+            <dd>
+            {%- if expanded is string -%}
+                {{ expanded }}
+            {%- else -%}
+                {{ expanded|join(", ") }}
+            {%- endif -%}.
+        {% endfor %}
+    </dl>
 {% endblock %}

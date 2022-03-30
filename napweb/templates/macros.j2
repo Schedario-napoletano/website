@@ -10,6 +10,11 @@
     {{ url_for("word_page", slug=definition.slug) }}
 {%- endmacro -%}
 
+{%- macro word_link(text, slug=None) -%}
+    {% set slug = slug or text %}
+    <a href="{{ url_for("word_page", slug=slug) }}">{{ text }}</a>
+{%- endmacro -%}
+
 {%- macro definitions_list(definitions) -%}
 <ul>
     {% for definition in definitions %}
