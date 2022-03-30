@@ -120,7 +120,7 @@ def search():
 
 @app.route("/ricerca/aiuto")
 def search_help():
-    return render_template("search_help.html.j2", sub_title="Aiuto per la ricerca")
+    return render_template("search_help.html.j2", sub_title="Aiuto per la ricerca", hide_search_hint=True)
 
 
 @app.route("/a-proposito")

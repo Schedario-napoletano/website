@@ -373,25 +373,32 @@ blockquote {
 }
 
 .letters-nav {
+  margin-bottom: 2 * $spacing-unit;
+
   li {
     // slightly larger on small screens
     font-size: 1.1em;
-
-    a {
-      display: inline-block;
-      padding: 2px;
-    }
+    padding: 2px;
 
     @include media-query($tablet) {
       font-size: 1em;
-      a {
-        padding: 0;
-      }
+      padding: 0;
     }
   }
 }
 
+.bottom-search-nav {
+  margin-top: 2 * $spacing-unit;
+
+  .letters-nav {
+    margin-top: $spacing-unit;
+    margin-bottom: $spacing-unit;
+  }
+}
+
 .pagination {
+  margin-top: $spacing-unit;
+
   ul {
     justify-content: space-around;
   }
@@ -407,13 +414,6 @@ blockquote {
   }
 }
 
-.letters-nav {
-  margin-bottom: 2 * $spacing-unit;
-}
-
-.pagination {
-  margin-top: 2 * $spacing-unit;
-}
 
 dt {
   font-weight: bold;
@@ -423,6 +423,22 @@ dd {
   margin-bottom: $spacing-unit;
 }
 
+.hint, .notice {
+  font-style: italic;
+}
+
+.search-form {
+  .hint {
+    font-size: 0.8rem;
+    margin-left: 2px;
+  }
+
+  input {
+    border: 1px solid $grey-color;
+    border-radius: 2px;
+    font-size: 1em;
+  }
+}
 
 // Abbreviations page
 dl.abbrs {
@@ -477,5 +493,9 @@ dl.abbrs {
 
   h1 {
     font-size: 3em;
+  }
+
+  .letters-nav {
+    font-size: 1.1rem;
   }
 }

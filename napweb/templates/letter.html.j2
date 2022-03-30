@@ -9,7 +9,6 @@
     {%- endif %}
 {% endblock %}
 {% block content %}
-    {% include "letters_nav.html.j2" %}
     {% include "letter_notice.html.j2" %}
     {{ m.definitions_list(pagination.items) }}
 
@@ -18,7 +17,9 @@
             <ul>
                 {% if pagination.prev_num %}
                     <li><a href="{{ m.letter_page_url(letter, pagination.prev_num) }}"
-                           title="Pagina precedente">&lsaquo;</a></li>
+                           title="Pagina precedente">&lsaquo;<br/></a></li>
+                {% else %}
+                    <li></li>
                 {% endif %}
                 {%- for page in pagination.iter_pages() %}
                     {% if page %}
@@ -34,8 +35,11 @@
                 {% if pagination.next_num %}
                     <li><a href="{{ m.letter_page_url(letter, pagination.next_num) }}"
                            title="Pagina successiva">&rsaquo;</a></li>
+                {% else %}
+                    <li></li>
                 {% endif %}
             </ul>
         </nav>
     {% endif %}
+    {% include "bottom_search_nav.html.j2" %}
 {% endblock %}

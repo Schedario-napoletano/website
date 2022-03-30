@@ -4,8 +4,6 @@
     {{ definition.word }} · Schedario napoletano
 {%- endblock %}
 {% block content %}
-    {% include "letters_nav.html.j2" %}
-
     {% if definition.definition %}
         {# https://schema.org/DefinedTerm #}
         <script type="application/ld+json">
@@ -52,4 +50,5 @@
             {% endif %}
         </ul>
     </nav>
+    {% include "bottom_search_nav.html.j2" %}
 {% endblock %}
