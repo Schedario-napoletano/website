@@ -68,22 +68,26 @@ def _escape_query_string(query_string: str):
             .replace("\\\\", "\\")  # escape the escaper
             .replace("%", "\\%")  # escape %
             .replace("_", "\\_")  # escape _
+            .replace("*", "%")  # allow '*' as the wildcard for any char (%)
             .replace("?", "_")  # allow '?' as the wildcard for a single char (_)
     )
 
 
-def search_definitions(query_string: str, limit: Optional[int] = None):
+def search_definitions(query_string: str, limit: Optional[int] = None, prefix=False):
     query_string = query_string.lower()
     query_string = _escape_query_string(query_string)
-    # Maybe add Definition.word_ascii.like(unidecode(...) + "%")
-    query = Definition.query.filter(Definition.word.like(query_string + "%")
-                                    | Definition.word_ascii.like(query_string + "%"))
 
-    if limit:
-        query = query.limit(limit)
+    if prefix:
+        query_string += "%"
+
+    query = Definition.query.filter(Definition.word.like(query_string)
+                                    | Definition.word_ascii.like(unidecode(query_string)))
 
     # We have no way to 'score' the results so let's sort them by alphabetical order
     query = query.order_by(Definition.word)
+
+    if limit:
+        query = query.limit(limit)
 
     return query.all()
 

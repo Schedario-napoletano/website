@@ -7,5 +7,7 @@
     </div>
 
     {{ m.definitions_list(definitions) }}
-
+    {% if maximum_count == definitions_count %}
+        <p class="notice">La ricerca è limitata a {{ maximum_count }} risultati.</p>
+    {% endif %}
 {% endblock %}

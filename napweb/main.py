@@ -22,7 +22,7 @@ assets.register('css_all', all_css)
 
 LETTERS = "A B C D E F G H I J L M N O P Q R S T U V Z".split(" ")
 PAGE_SIZE = 150
-MAX_SEARCH_RESULTS = 20
+MAX_SEARCH_RESULTS = 50
 
 
 @app.before_request
@@ -101,18 +101,26 @@ def word_page(slug):
                            next_definition=next_definition)
 
 
-@app.route("/search")
+@app.route("/ricerca")
 def search():
     query = request.args.get("q", "")
 
-    definitions = search_definitions(query)
+    definitions = search_definitions(query, limit=MAX_SEARCH_RESULTS)
 
     return render_template("search.html.j2",
+                           sub_title="Ricerca",
                            definitions=definitions,
+                           definitions_count=len(definitions),
+                           maximum_count=MAX_SEARCH_RESULTS,
                            search_query=query)
     # TODO
     # https://amitosh.medium.com/full-text-search-fts-with-postgresql-and-sqlalchemy-edc436330a0c
     # https://github.com/recrsn/video-gallery/blob/master/migrations/versions/7f9863909887_.py
+
+
+@app.route("/ricerca/aiuto")
+def search_help():
+    return render_template("search_help.html.j2", sub_title="Aiuto per la ricerca")
 
 
 @app.route("/a-proposito")
@@ -122,9 +130,9 @@ def a_proposito():
 
 @app.route("/abbreviazioni")
 def abbreviations():
-    return render_template("abbreviations.html.j2", sub_title="Abbreviazioni")
+    return render_template("abbreviations.html.j2", sub_title="Abbreviazioni usate")
 
 
 @app.route("/introduzione")
 def introduction():
-    return render_template("intro.html.j2", sub_title="Introduzione")
+    return render_template("intro.html.j2", sub_title="Introduzione", page_class="intro")
