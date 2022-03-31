@@ -21,6 +21,10 @@ the address `db`, username `postgres` and password `postgres`.
 
     cat definitions.json | docker-compose run web poetry run python import_definitions.py
 
+With a Dokku-managed server, figure out the container id using `docker container ls`, then:
+
+    cat definitions.json | docker exec -i <container-id> /app/.heroku/python/bin/python /app/import_definitions.py
+
 ## Tests
 
     poetry run pytest
