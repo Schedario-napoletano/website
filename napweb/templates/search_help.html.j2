@@ -6,14 +6,14 @@
         <li><code>?</code> per indicare qualsiasi carattere. Per esempio
             <i><a href="{{ url_for("search", q="gal??a") }}">gal??a</a></i> cerca tutte le parole che sono
             composte di <i>gal</i> seguito da due caratteri seguiti da <i>a</i>, come <i>{{ m.word_link("galana") }}</i>
-            o <i>{{ m.word_link("gallià", "gallia") }}</i>.
+            o <i>{{ m.word_link("gallià") }}</i>.
         </li>
         <li><code>*</code> per indicare zero o più caratteri. Per esempio
             <i><a href="{{ url_for("search", q="abi*") }}">abi*</a></i> cerca tutte le parole che iniziano con
             <i>abi</i>,
             <i><a href="{{ url_for("search", q="*tua") }}">*tua</a></i> tutte quelle che finiscono con <i>tua</i>, e
             <i><a href="{{ url_for("search", q="pa*eco") }}">pa*eco</a></i> tutte quelle che iniziano con <i>pa</i> e
-            finiscono con <i>eco</i> (come {{ m.word_link("pàteco", "pateco") }}).
+            finiscono con <i>eco</i> (come {{ m.word_link("pàteco") }}).
         </li>
     </ul>
     {% include "search_bar.html.j2" %}
