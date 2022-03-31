@@ -536,7 +536,17 @@ dl.abbrs {
     font-size: 3em;
   }
 
+  .search-form {
+    display: inline-block;
+    text-align: left;
+  }
+
   .letters-nav {
     font-size: 1.1rem;
+
+    @include media-query($tablet) {
+      font-size: inherit;
+      margin-top: 1.5 * $spacing-unit;
+    }
   }
 }
