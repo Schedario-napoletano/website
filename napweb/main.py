@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 import htmlmin
 from flask import render_template, g, abort, url_for, redirect, request
 from flask_sqlalchemy import Pagination
@@ -23,6 +25,21 @@ assets.register('css_all', all_css)
 LETTERS = "A B C D E F G H I J L M N O P Q R S T U V Z".split(" ")
 PAGE_SIZE = 150
 MAX_SEARCH_RESULTS = 50
+CANONICAL_DOMAIN = app.config.get("CANONICAL_DOMAIN")
+HTTPS = app.config.get("HTTPS")
+
+if HTTPS or CANONICAL_DOMAIN:
+    @app.before_request
+    def redirect_to_canonical_domain():
+        url_parts = urlparse(request.url)
+        if url_parts.netloc != CANONICAL_DOMAIN:
+            url_parts = url_parts._replace(netloc=CANONICAL_DOMAIN)
+        if HTTPS and url_parts.scheme != "https":
+            url_parts = url_parts._replace(scheme="https")
+
+        new_url = url_parts.geturl()
+        if new_url != request.url:
+            return redirect(new_url, code=301)
 
 
 @app.before_request
