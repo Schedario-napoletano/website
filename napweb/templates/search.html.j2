@@ -4,12 +4,17 @@
     <meta name="canonical" content="{{ url_for("search") }}">
 {% endblock %}
 {% block content %}
-    {% include "search_bar.html.j2" %}
     <div class="search">
-        {{ m.definitions_list(definitions) }}
-        {% if maximum_count == definitions_count %}
-            <p class="notice">N.B. La ricerca è limitata a {{ maximum_count }} risultati.</p>
+        {% include "search_bar.html.j2" %}
+        {% if definitions %}
+            <h2>Risultati:</h2>
+            {{ m.definitions_list(definitions) }}
+            {% if maximum_count == definitions_count %}
+                <p class="notice">N.B. La ricerca è limitata ai primi {{ maximum_count }}&nbsp;risultati.</p>
+            {% endif %}
+        {% else %}
+            <p class="notice">Nessun risultato.</p>
         {% endif %}
+        {% include "letters_nav.html.j2" %}
     </div>
-    {% include "letters_nav.html.j2" %}
 {% endblock %}

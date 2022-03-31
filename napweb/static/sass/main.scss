@@ -24,7 +24,7 @@ $grey-color-dark: darken($grey-color, 25%);
 // Width of the content area
 $content-width: 800px;
 
-$smartphone: 380px;
+$smartphone: 375px;
 $tablet: 768px;
 $desktop: 1024px;
 
@@ -373,14 +373,18 @@ blockquote {
 }
 
 .letters-nav {
-  margin-bottom: 2 * $spacing-unit;
+  margin-bottom: $spacing-unit / 2;
 
   li {
     // slightly larger on small screens
     font-size: 1.1em;
     padding: 2px;
+  }
 
-    @include media-query($tablet) {
+  @include media-query($tablet) {
+    margin-bottom: $spacing-unit;
+
+    li {
       font-size: 1em;
       padding: 0;
     }
@@ -392,7 +396,6 @@ blockquote {
 
   .letters-nav {
     margin-top: $spacing-unit;
-    margin-bottom: $spacing-unit;
   }
 }
 
@@ -405,11 +408,30 @@ blockquote {
 
   li {
     &.other-page, &.ellipsis {
-      display: none;
+      display: none; // hide on small screens
+    }
+  }
 
-      @include media-query($tablet) {
+  li a, .current-page, .ellipsis {
+    // larger touch zone
+    padding: 10px;
+  }
+}
+
+@include media-query($tablet) {
+  .pagination {
+    li {
+      &.other-page, &.ellipsis {
         display: inline-flex;
       }
+
+      &.current-page {
+        font-weight: bold;
+      }
+    }
+
+    .legend {
+      display: none;
     }
   }
 }
@@ -427,9 +449,17 @@ dd {
   font-style: italic;
 }
 
+.qualifier {
+  font-size: 0.8em;
+
+  @include media-query($smartphone) {
+    font-size: 1em;
+  }
+}
+
 .search-form {
   .hint {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin-left: 2px;
   }
 
@@ -483,6 +513,17 @@ dl.abbrs {
       width: 33%;
       margin-bottom: $spacing-unit / 4;
     }
+  }
+}
+
+// Search page
+.search {
+  .letters-nav {
+    margin-top: $spacing-unit;
+  }
+
+  .notice {
+    font-size: 0.9em;
   }
 }
 

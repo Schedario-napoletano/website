@@ -7,6 +7,7 @@
     {% if pagination.next_num -%}
         <link rel="next" href="{{ m.letter_page_url(letter, pagination.next_num) }}">
     {%- endif %}
+    <meta name="canonical" content="{{ m.letter_page_url(letter) }}">
 {% endblock %}
 {% block content %}
     {% include "letter_notice.html.j2" %}
@@ -17,14 +18,15 @@
             <ul>
                 {% if pagination.prev_num %}
                     <li><a href="{{ m.letter_page_url(letter, pagination.prev_num) }}"
-                           title="Pagina precedente">&lsaquo;<br/></a></li>
+                           title="Pagina precedente">&larr; <span class="legend">indietro</span></a></li>
+                    {# alternative: &lsaquo;, &rsaquo; #}
                 {% else %}
                     <li></li>
                 {% endif %}
                 {%- for page in pagination.iter_pages() %}
                     {% if page %}
                         {% if page == pagination.page %}
-                            <li><b>{{ page }}</b></li>
+                            <li class="current-page">{{ page }}</li>
                         {% else %}
                             <li class="other-page"><a href="{{ m.letter_page_url(letter, page) }}">{{ page }}</a></li>
                         {% endif %}
@@ -34,7 +36,7 @@
                 {%- endfor %}
                 {% if pagination.next_num %}
                     <li><a href="{{ m.letter_page_url(letter, pagination.next_num) }}"
-                           title="Pagina successiva">&rsaquo;</a></li>
+                           title="Pagina successiva"><span class="legend">avanti</span> &rarr;</a></li>
                 {% else %}
                     <li></li>
                 {% endif %}
