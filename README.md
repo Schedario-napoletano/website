@@ -1,6 +1,6 @@
 # Schedario napoletano (website)
 
-This repository contains the content and source code used to build the website <https://schedarionapoletano.it/>.
+This repository contains the content and source code for the website <https://schedarionapoletano.it/>.
 
 ## Setup
 
