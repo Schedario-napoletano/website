@@ -3,7 +3,7 @@
     <div class="home">
         <p>Benvenuti sul sito del <i>Schedario napoletano</i>!</p>
 
-        <p>Al giorno d’oggi ci sono <b>22&nbsp;400 definizioni</b> di parole in lingua napoletana.</p>
+        <p>Al giorno d’oggi ci sono <b><span class="number">{{ total_definitions | safe }}</span> definizioni</b> di parole in lingua napoletana.</p>
     </div>
     {% include "bottom_search_nav.html.j2" %}
 {% endblock %}

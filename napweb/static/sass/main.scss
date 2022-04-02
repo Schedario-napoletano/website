@@ -426,6 +426,8 @@ dd {
   margin-bottom: $spacing-unit;
 }
 
+.number { white-space: nowrap; }
+
 .hint, .notice {
   font-style: italic;
 }

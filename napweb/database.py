@@ -44,6 +44,10 @@ class Definition(db.Model):
     target_text = db.Column(db.Unicode, nullable=True)
 
 
+def count_definitions():
+    return db.session.query(db.func.count(Definition.id)).scalar()
+
+
 def get_prev_next_definitions(definition: Definition):
     # Let’s do both in one query
     surrounding_definitions = Definition.query \

@@ -68,7 +68,11 @@ def server_error(_e):
 
 @app.route("/")
 def home():
-    return render_template("home.html.j2")
+    count = str(count_definitions())
+    formatted_count = count[:-3] + "&thinsp;" + count[-3:]
+
+    return render_template("home.html.j2",
+                           total_definitions=formatted_count)
 
 
 @app.route("/lettera/<letter>")
