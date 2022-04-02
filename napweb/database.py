@@ -96,16 +96,17 @@ def search_definitions(query_string: str, limit: Optional[int] = None, prefix=Fa
     return query.all()
 
 
-def definition_from_dict(d: dict):
-    definition = Definition(
-        word=d["word"],
-        word_ascii=unidecode(d["word"]),
-        slug=slugify(d["word"]),
-        definition_type=type2enum[d["definition_type"]],
-        initial_letter=d["initial_letter"],
-        qualifier=d.get("qualifier"),
-        definition=d.get("definition"),
-        target_text=d.get("target"),
-    )
-
+def update_definition_from_dict(definition: Definition, d: dict):
+    definition.word = d["word"]
+    definition.word_ascii = unidecode(d["word"])
+    definition.slug = slugify(d["word"])
+    definition.definition_type = type2enum[d["definition_type"]]
+    definition.initial_letter = d["initial_letter"]
+    definition.qualifier = d.get("qualifier")
+    definition.definition = d.get("definition")
+    definition.target_text = d.get("target")
     return definition
+
+
+def definition_from_dict(d: dict):
+    return update_definition_from_dict(Definition(), d)

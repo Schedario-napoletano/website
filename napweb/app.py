@@ -6,6 +6,7 @@ app = Flask(__name__)
 # Dokku uses postgres:// but SQLAlchemy 1.4+ supports only postgresql://
 # https://stackoverflow.com/a/66794960/735926
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"].replace("postgres://", "postgresql://")
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['CANONICAL_DOMAIN'] = os.environ.get("CANONICAL_DOMAIN")
 app.config['HTTPS'] = os.environ.get('HTTPS')

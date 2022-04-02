@@ -7,7 +7,7 @@ from typing import Dict, Tuple, List
 import re
 from unidecode import unidecode
 
-from napweb.database import db, definition_from_dict, Definition
+from napweb.database import db, definition_from_dict, Definition, update_definition_from_dict
 
 
 def main():
@@ -19,14 +19,25 @@ def main():
 
     aliases: List[Tuple[Definition, str]] = []
 
-    word2definition: Dict[str, Definition] = {}
     unaccented_word2definition: Dict[str, Definition] = {}
+
+    word2definition: Dict[str, Definition] = {
+        definition.word: definition
+        for definition in Definition.query.all()
+    }
 
     definitions = json.load(sys.stdin)
 
     print("1. import all definitions without alias targets")
-    for definition_dict in definitions:
-        definition = definition_from_dict(definition_dict)
+    for i, definition_dict in enumerate(definitions):
+        if i and i % 1000 == 0:
+            print(i)
+
+        if definition := word2definition.get(definition_dict["word"]):
+            update_definition_from_dict(definition, definition_dict)
+        else:
+            definition = definition_from_dict(definition_dict)
+            word2definition[definition.word] = definition
 
         if definition.slug in slugs:
             raise RuntimeError(f"Conflicting slug {definition.slug} for {slugs[definition.slug]} and {definition.word}")
@@ -39,7 +50,6 @@ def main():
 
             aliases.append((definition, target))
 
-        word2definition[definition.word] = definition
         unaccented_word2definition[unidecode(definition.word)] = definition
 
         db.session.add(definition)
@@ -67,7 +77,7 @@ def main():
         print(f"!!!! Missing target word {definition.word} -> {target_word}")
         missing += 1
 
-    print("missing:", missing)  # best: 497
+    print("missing:", missing)  # best: 390
 
     db.session.commit()
 
