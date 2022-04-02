@@ -7,11 +7,7 @@ from flask_assets import Environment
 from webassets import Bundle
 
 from .app import app
-from .database import Definition, get_prev_next_definitions, type2enum, search_definitions
-
-app.jinja_options["autoescape"] = lambda _: True
-app.jinja_env.trim_blocks = True
-app.jinja_env.lstrip_blocks = True
+from .database import Definition, get_prev_next_definitions, type2enum, search_definitions, count_definitions
 
 assets = Environment(app)
 # js = Bundle(...,

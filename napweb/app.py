@@ -10,6 +10,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"].replace("post
 app.config['CANONICAL_DOMAIN'] = os.environ.get("CANONICAL_DOMAIN")
 app.config['HTTPS'] = os.environ.get('HTTPS')
 
+app.jinja_options["autoescape"] = lambda _: True
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
+
 if os.environ.get("DEBUG"):
     app.debug = True
     app.config["TEMPLATES_AUTO_RELOAD"] = True
