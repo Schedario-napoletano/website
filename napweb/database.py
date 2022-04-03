@@ -78,14 +78,21 @@ def _escape_query_string(query_string: str):
 
 
 def search_definitions(query_string: str, limit: Optional[int] = None, prefix=False):
-    query_string = query_string.lower()
-    query_string = _escape_query_string(query_string)
+    query_string = _escape_query_string(query_string.lower())
 
     if prefix:
         query_string += "%"
 
-    query = Definition.query.filter(Definition.word.like(query_string)
-                                    | Definition.word_ascii.like(unidecode(query_string)))
+    ascii_query_string = unidecode(query_string)
+
+    filters = (Definition.word.like(query_string)
+               | Definition.word_ascii.like(ascii_query_string))
+
+    # try "bla" in addition to "'bla"
+    if len(ascii_query_string) > 2 and "'" in ascii_query_string:
+        filters |= Definition.word_ascii.like(ascii_query_string.strip("'"))
+
+    query = Definition.query.filter(filters)
 
     # We have no way to 'score' the results so let's sort them by alphabetical order
     query = query.order_by(Definition.word)

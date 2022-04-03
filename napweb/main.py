@@ -130,9 +130,6 @@ def search():
                            definitions_count=len(definitions),
                            maximum_count=MAX_SEARCH_RESULTS,
                            search_query=query)
-    # TODO
-    # https://amitosh.medium.com/full-text-search-fts-with-postgresql-and-sqlalchemy-edc436330a0c
-    # https://github.com/recrsn/video-gallery/blob/master/migrations/versions/7f9863909887_.py
 
 
 @app.route("/ricerca/aiuto")
