@@ -12,21 +12,29 @@ from napweb.database import db, definition_from_dict, Definition, update_definit
 
 def main():
     p = argparse.ArgumentParser()
-    p.parse_args()
+    p.add_argument("--erase-first", action="store_true")
+    opts = p.parse_args()
+
+    definitions = json.load(sys.stdin)
+    if not definitions:
+        print("Empty definitions; stopping there.")
+        return
+
+    if opts.erase_first:
+        print("0. Delete existing definitions")
+        Definition.query.delete()
+        db.session.commit()
 
     # slug -> word
     slugs: Dict[str, str] = {}
 
     aliases: List[Tuple[Definition, str]] = []
 
-    unaccented_word2definition: Dict[str, Definition] = {}
-
     word2definition: Dict[str, Definition] = {
         definition.word: definition
         for definition in Definition.query.all()
     }
-
-    definitions = json.load(sys.stdin)
+    unaccented_word2definition: Dict[str, Definition] = {}
 
     print("1. import all definitions without alias targets")
     for i, definition_dict in enumerate(definitions):
@@ -77,7 +85,7 @@ def main():
         print(f"!!!! Missing target word {definition.word} -> {target_word}")
         missing += 1
 
-    print("missing:", missing)  # best: 318
+    print("missing:", missing)  # best: 309
 
     # Note when overriding existing definitions this can fail with "Key (slug)=(...) already exists". A quick "fix" is
     # to delete and re-create the database.
