@@ -77,8 +77,10 @@ def main():
         print(f"!!!! Missing target word {definition.word} -> {target_word}")
         missing += 1
 
-    print("missing:", missing)  # best: 390
+    print("missing:", missing)  # best: 318
 
+    # Note when overriding existing definitions this can fail with "Key (slug)=(...) already exists". A quick "fix" is
+    # to delete and re-create the database.
     db.session.commit()
 
 
