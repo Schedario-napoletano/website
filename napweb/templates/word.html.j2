@@ -3,6 +3,11 @@
 {% block title -%}
     {{ definition.word }} · Schedario napoletano
 {%- endblock %}
+{% block head %}
+    <meta property="og:title" content="{{ definition.word }}">
+    <meta property="og:url" content="{{ url_for("word_page", slug=definition.slug, _external=True) }}">
+    <meta name="description" content="Definizione di «{{ definition.word }}» nello Schedario napoletano online.">
+{% endblock %}
 {% block content %}
     {% if definition.definition %}
         {# https://schema.org/DefinedTerm #}

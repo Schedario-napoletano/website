@@ -1,4 +1,5 @@
 {% import "macros.j2" as m %}
+{% set og_image = og_image or url_for("static", filename = "img/logo.png") %}
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -6,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{ url_for("static", filename = "img/logo.png") }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ og_image }}">
     {% assets "css_all" %}
         <link rel="stylesheet" href="{{ ASSET_URL }}">
     {% endassets %}
