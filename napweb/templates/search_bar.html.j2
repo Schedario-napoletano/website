@@ -1,5 +1,10 @@
 <form action="{{ url_for("search") }}" class="search-form">
-    <input name="q" type="search" {% if search_query %}value="{{ search_query | escape }}"{% endif %}/>
+    <input name="q"
+           type="search"
+           spellcheck="false"
+           autocapitalize="off"
+           autocorrect="off"
+           {% if search_query %}value="{{ search_query | escape }}"{% endif %}/>
     <input type="submit" value="Cerca"/>
     {% if not hide_search_hint %}<p class="hint"><a href="{{ url_for("search_help") }}">Aiuto</a></p>{% endif %}
 </form>
