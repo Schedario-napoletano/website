@@ -82,6 +82,7 @@ def main():
             continue
 
         # Those can be typos or may mean we didn’t correctly parse the target definitions
+        # TODO: better support variations: friccicariello -> friccecariello, which we don't match because it's "friccecariello-ella"
         print(f"!!!! Missing target word {definition.word} -> {target_word}")
         missing += 1
 
